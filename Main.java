@@ -1,4 +1,4 @@
-// แทน 680510716
+// 680510716
 
 import core.QuizEngine;
 import core.QuestionLoader;
