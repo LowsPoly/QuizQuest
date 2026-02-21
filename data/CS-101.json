@@ -1,0 +1,33 @@
+{
+	"QUIZ-ID": "CS-101",
+	"TITLE": "INTRODUCTION TO COMPUTER SCIENCE",
+	"DESCRIPTION": "THIS IS AN EXAMPLE DESCRIPTION",
+	"TIME-LIMIT": -1,
+	"PASSING-SCORE": 70,
+	"QUESTIONS": [
+		{
+			"QUESTION-ID": "Q1",
+			"TYPE": "MULTIPLE-CHOICES",
+			"TEXT": "WHAT IS THE TIME COMPLEXITY OF BINARY SEARCH?",
+			"SCORE": 10,
+			"ANSWERS": [
+				{
+					"TEXT": "O(n)",
+					"IS-CORRECT": false
+				},
+				{
+					"TEXT": "O(log n)",
+					"IS-CORRECT": true
+				},
+				{
+					"TEXT": "O(n log n)",
+					"IS-CORRECT": false
+				},
+				{
+					"TEXT": "O(1)",
+					"IS-CORRECT": false
+				},
+			]
+		}
+	]
+}

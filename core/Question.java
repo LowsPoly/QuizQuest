@@ -6,7 +6,7 @@ import packages.StringValidator;
 
 public class Question {
 	// Constants
-	private final byte MAX_CHOICES = 4;
+	private static final byte MAX_CHOICES = 4;
 
 	// Attributes
 	private final String[] choices;
@@ -17,24 +17,37 @@ public class Question {
 	public Question(String text, String[] choices, byte answerIndex)
 	{
 		this.questionText = StringValidator.validateString(text,
-								   "Question");
-		this.choices = Question.validateChoices(choices);
-		this.answerIndex = Question.validateAnswerIndex(answerIndex);
+				                                   "Question");
+		this.choices = this.validateChoices(choices);
+		this.answerIndex = this.validateAnswerIndex(answerIndex);
 	}
 
 	// Public Methods
-	public String getText() { return this.questionText; }
-	public String[] getChoices() { return this.choices; }
-	public boolean isCorrect(byte selectedIndex)
+	public String getText()
 	{
-		if (selectedIndex < 0 || selectedIndex >= MAX_CHOICES)
-			throw new IllegalArgumentException("INVALID INDEX");
-
-		return selectedIndex == this.answerIndex;
+		return this.questionText;
 	}
 
-	// Utility Methods
-	private static String[] validateChoices(String[] choices)
+	public String[] getChoices()
+	{
+		return this.choices;
+	}
+
+	public byte getAnswerIndex()
+	{
+		return this.answerIndex;
+	}
+
+	// Private Methods
+	private byte validateAnswerIndex(byte index)
+	{
+		if (index < 0 || index >= this.choices.length)
+			throw new IllegalArgumentException("INVALID ANSWER INDEX");
+
+		return index;
+	}
+
+	private String[] validateChoices(String[] choices)
 	{
 		if (choices == null)
 			throw new IllegalArgumentException("CHOICES ARE NULL");
@@ -51,19 +64,9 @@ public class Question {
 			copy[i] = StringValidator.validateString(
 				choices[i],
 				"Choice at index " + i
-			)
+			);
 		}
 
 		return copy;
-	}
-
-	private static byte validateAnswerIndex(byte index)
-	{
-		if (index < 0 || index >= MAX_CHOICES)
-			throw new IllegalArgumentException(
-				"ANSWER INDEX OUT OF RANGE"
-			);
-
-		return index;
 	}
 }
