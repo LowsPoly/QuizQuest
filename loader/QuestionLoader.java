@@ -8,26 +8,45 @@ package loader;
 
 import core.Question;
 
-import com.google.gson.*;
-import java.io.IOException;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject; 
+import com.google.gson.JsonArray;  
+import com.google.gson.JsonParser; 
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 
 public class QuestionLoader {
-	public Question load(String filePath){
-		Gson gson = new Gson();
-		Reader reader = new FileReader(filePath);
-		return gson.fromJson(reader, Question.class);
-	}
+    public Question[] load(String filePath) {
+		// try read json file
+        try (Reader reader = new FileReader(filePath)) {
+            JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
+ 
+            Question[] questions = new Question[jsonArray.size()];
+            for (int i=0; i<jsonArray.size(); i++){
+                JsonObject obj = jsonArray.get(i).getAsJsonObject();
 
-	// Utility Methods
-	private static JsonObject readJson(String filePath){
-		try (Reader reader = new FileReader(filePath)) {
-			return JsonParser.parseReader(reader).getJsonObject();
-		}
-	}
+                // quest and answer
+                String text = obj.get("questionText").getAsString();
+                byte ans = obj.get("answerIndex").getAsByte();
+                
+                // choices
+                JsonArray JsChoices = obj.get("choices").getAsJsonArray();
+                String[] choices = new String[JsChoices.size()];
+                for (int j=0; j<JsChoices.size(); j++){
+                    choices[j] = JsChoices.get(j).getAsString();
+                }
 
-	private static Question parseQuestion(JsonObject json){
-		
-	}
+                questions[i] = new Question(text, choices, ans);
+            }
+            return questions;
+
+        }catch (IOException e){
+            System.err.println("Error: " + e.getMessage());
+            return new Question[0];
+        } catch (Exception e) {
+            System.err.println("Error parsing JSON: " + e.getMessage());
+            return new Question[0];
+        }
+    }
 }

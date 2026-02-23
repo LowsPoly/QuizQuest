@@ -6,7 +6,7 @@ import packages.StringValidator;
 
 public class Answer {
 	// Attributes
-	private string text;
+	private String text;
 
 	// Constructor
 	public Answer(String text)
