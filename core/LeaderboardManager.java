@@ -17,8 +17,6 @@ public class LeaderboardManager{
 
     public static List<Result> loadResults(){
         File file = new File(FILE_PATH);
-
-
         if (!file.exists()){return new ArrayList<>();}
 
         try (FileReader reader = new FileReader(file)){
@@ -32,8 +30,6 @@ public class LeaderboardManager{
             System.out.println(e);
             return new ArrayList<>();
         }
-
-
     }
 
     public static void saveResult(Result newResult){

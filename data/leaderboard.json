@@ -6,9 +6,21 @@
     "difficultyLevel": "Hard"
   },
   {
-    "playerName": "ฤ�Auto",
+    "playerName": "Auto",
     "total": 100,
     "score": 79,
+    "difficultyLevel": "Hard"
+  },
+  {
+    "playerName": "A",
+    "total": 100,
+    "score": 5,
+    "difficultyLevel": "Hard"
+  },
+  {
+    "playerName": "1",
+    "total": 100,
+    "score": 5,
     "difficultyLevel": "Hard"
   }
 ]

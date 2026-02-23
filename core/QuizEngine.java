@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class QuizEngine {
     // Attributes
-
     private Question[] questions;
     private String difficulty;
+    private int heart;
 
     // Constructor
     public QuizEngine(Question[] questions, String difficulty) {
@@ -16,8 +16,10 @@ public class QuizEngine {
     }
 
     public Result initialise() {
+
         Scanner input = new Scanner(System.in);
         int correctCount = 0;
+        this.heart = 3;
 
         // input name user
         System.out.println("=== Welcome to QuizQuest ===");
@@ -46,9 +48,17 @@ public class QuizEngine {
                 System.out.println("--------------------");
                 correctCount++;
             }else{
+                heart -= 1;
                 System.out.println("--------------------");
-                System.out.println("Wrong!! : +0 Point");
+                System.out.println("Wrong!! : heart remaining " + this.heart );
                 System.out.println("--------------------");
+
+                if (heart <= 0){
+                    System.out.println("--------------------");
+                    System.out.println("      Game Over     ");
+                    System.out.println("--------------------");
+                    break;
+                }
             }
         }
 
