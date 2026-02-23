@@ -37,6 +37,16 @@ public class LeaderboardManager{
         List<Result> list = loadResults();
         list.add(newResult);
 
+        for (int i = 0; i < list.size() - 1; i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                if (list.get(i).getScore() < list.get(j).getScore()) {
+                    Result temp = list.get(i);
+                    list.set(i, list.get(j));
+                    list.set(j, temp);
+                }
+            }
+        }
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             gson.toJson(list, writer);

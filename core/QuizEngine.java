@@ -57,10 +57,12 @@ public class QuizEngine {
                     System.out.println("--------------------");
                     System.out.println("      Game Over     ");
                     System.out.println("--------------------");
+                    input.close();
                     break;
                 }
             }
         }
+        input.close();
 
         return new Result(playerName, questions.length, correctCount, difficulty);
     }

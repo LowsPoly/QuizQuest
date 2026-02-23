@@ -4,6 +4,22 @@ import core.*;
 import java.util.List;
 import loader.QuestionLoader;
 
+
+/* * 1. โหลดคำถาม: 
+ * QuestionLoader loader = new QuestionLoader();
+ * Question[] questions = loader.load("path/to/file.json");
+ * * 2. เริ่มเกม: 
+ * QuizEngine engine = new QuizEngine(questions, "Difficulty");
+ * Result result = engine.initialise();
+ * * 3. บันทึกคะแนน: 
+ * LeaderboardManager.saveResult(result);
+ * * 4. ดึงตารางคะแนนมาโชว์: 
+ * List<Result> scores = LeaderboardManager.loadResults();
+ * * 5. เช็คคำตอบ:
+ * question.checkAnswer(index); // คืนค่า true/false
+ */
+
+
 public class Main {
 
     public static void main(String[] args) {

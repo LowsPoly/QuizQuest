@@ -1,14 +1,14 @@
 [
   {
-    "playerName": "1",
-    "total": 100,
-    "score": 33,
-    "difficultyLevel": "Hard"
-  },
-  {
     "playerName": "Auto",
     "total": 100,
     "score": 79,
+    "difficultyLevel": "Hard"
+  },
+  {
+    "playerName": "1",
+    "total": 100,
+    "score": 33,
     "difficultyLevel": "Hard"
   },
   {
@@ -21,6 +21,24 @@
     "playerName": "1",
     "total": 100,
     "score": 5,
+    "difficultyLevel": "Hard"
+  },
+  {
+    "playerName": "ฤ�AAA",
+    "total": 100,
+    "score": 5,
+    "difficultyLevel": "Hard"
+  },
+  {
+    "playerName": "AA",
+    "total": 100,
+    "score": 2,
+    "difficultyLevel": "Hard"
+  },
+  {
+    "playerName": "ADASD",
+    "total": 100,
+    "score": 0,
     "difficultyLevel": "Hard"
   }
 ]
