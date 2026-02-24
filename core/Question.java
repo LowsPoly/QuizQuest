@@ -1,74 +1,80 @@
 // 680510716
+
 package core;
 
 import packages.StringValidator;
+import core.Answer;
 
 public class Question {
-    // Constants
+	// Constants
+	private static final int MAX_CHOICES = 4;
 
-    private static final byte MAX_CHOICES = 4;
+	// Attributes
+	private String[] choices;
+	private String questionText;
+	private in answerIndex;
+	private Answer answer;
+	private int score;
 
-    // Attributes
-    private final String[] choices;
-    private final String questionText;
-    private final byte answerIndex;
+	// Constructor
+	public Question(String text, String[] choices, int answerIndex)
+	{
+		this.questionText = StringValidator.validateString(text, "Question");
+		this.choices = this.validateChoices(choices);
+		this.answerIndex = this.validateAnswerIndex(answerIndex);
+		this.answer = Answer.new(this.choices[this.answerIndex]);
+	}
 
-    // Constructor
-    public Question(String text, String[] choices, byte answerIndex) {
-        this.questionText = StringValidator.validateString(text,
-                "Question");
-        this.choices = this.validateChoices(choices);
-        this.answerIndex = this.validateAnswerIndex(answerIndex);
-    }
+	// Public Methods
+	public String getText()
+	{
+		return this.questionText;
+	}
 
-    // Public Methods
+	public String[] getChoices()
+	{
+		return this.choices;
+	}
+	
+	public Answer getAnswer()
+	{
+		return this.answer;
+	}
 
-    // Quest
-    public String getText() {
-        return this.questionText;
-    }
-    // Choice
-    public String[] getChoices() {
-        return this.choices;
-    }
-    // Answer
-    public byte getAnswerIndex() {
-        return this.answerIndex;
-    }
-    public boolean checkAnswer(int userChoiceIndex){
-        return this.answerIndex == userChoiceIndex;
-    }
+	public int getAnswerIndex()
+	{
+		return this.answerIndex;
+	}
 
-    // Private Methods
-    private byte validateAnswerIndex(byte index) {
-        if (index < 0 || index >= this.choices.length) {
-            throw new IllegalArgumentException("INVALID ANSWER INDEX");
-        }
+	// Private Methods
+	private int validateAnswerIndex(int index)
+	{
+		if (index < 0 || index >= this.choices.length)
+			throw new IllegalArgumentException("INVALID ANSWER INDEX");
 
-        return index;
-    }
+		return index;
+	}
 
-    private String[] validateChoices(String[] choices) {
-        if (choices == null) {
-            throw new IllegalArgumentException("CHOICES ARE NULL");
-        }
+	private String[] validateChoices(String[] choices)
+	{
+		if (choices == null)
+			throw new IllegalArgumentException("CHOICES ARE NULL");
 
-        if (choices.length > MAX_CHOICES || choices.length < 1) {
-            throw new IllegalArgumentException(
-                    "INVALID CHOICE LENGTH"
-            );
-        }
+		if (choices.length > MAX_CHOICES || choices.length < 1)
+			throw new IllegalArgumentException(
+				"INVALID CHOICE LENGTH"
+			);
 
-        String[] copy = new String[choices.length];
+		String[] copy = new String[choices.length];
 
-        // Copy & Ensure non-blank choices
-        for (int i = 0; i < choices.length; i++) {
-            copy[i] = StringValidator.validateString(
-                    choices[i],
-                    "Choice at index " + i
-            );
-        }
+		// Copy & Ensure non-blank choices
+		for (int i = 0; i < choices.length; i++) {
+			copy[i] = StringValidator.validateString(
+				choices[i],
+				"Choice at index " + i
+			);
+		}
 
-        return copy;
-    }
+		return copy;
+	}
 }
