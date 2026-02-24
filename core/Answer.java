@@ -1,20 +1,19 @@
 // 680510716
+
 package core;
 
-import packages.StringValidator;
+import packages.StringValidator; 
 
 public class Answer {
-    // Attributes
+	// Attributes
+	private String text;
 
-    private String text;
+	// Constructor
+	public Answer(String text)
+	{
+		this.text = StringValidator.validateString(text, "Answer");
+	}
 
-    // Constructor
-    public Answer(String text) {
-        this.text = StringValidator.validateString(text, "Answer");
-    }
-
-    // Public Methods
-    public String getText() {
-        return this.text;
-    }
+	// Public Methods
+	public String getText() { return this.text; }
 }
