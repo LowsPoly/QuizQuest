@@ -1,52 +1,53 @@
-// 680510716
-
-/*
-	Reading data from JSON
- */
 package loader;
 
 import core.Question;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import java.io.FileReader;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 import java.io.IOException;
-import java.io.Reader;
 
-public class QuestionLoader {
+public Question[] load(String filePath)
+{
+	try {
+		// Read entire file as UTF-8 string
+		String content = Files.readString(Paths.get(filePath),
+		                                  StandardCharsets.UTF_8);
 
-    public Question[] load(String filePath) {
-        // try read json file
-        try (Reader reader = new FileReader(filePath)) {
-            JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
+		// Parse JSON array
+		JSONArray jsonArray = new JSONArray(content);
 
-            Question[] questions = new Question[jsonArray.size()];
-            for (int i = 0; i < jsonArray.size(); i++) {
-                JsonObject obj = jsonArray.get(i).getAsJsonObject();
+		// Allocate memory for questions array
+		Question[] questions = new Question[jsonArray.length()];
 
-                // quest and answer
-                String text = obj.get("questionText").getAsString();
-                byte ans = obj.get("answerIndex").getAsByte();
+		// Read each question
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject obj = jsonArray.getJSONObject(i);
 
-                // choices
-                JsonArray JsChoices = obj.get("choices").getAsJsonArray();
-                String[] choices = new String[JsChoices.size()];
-                for (int j = 0; j < JsChoices.size(); j++) {
-                    choices[j] = JsChoices.get(j).getAsString();
-                }
+			String text = obj.getString("questionText");
+			int answerIndex = obj.getInt("answerIndex");
 
-                questions[i] = new Question(text, choices, ans);
-            }
-            return questions;
+			// Read choices
+			JSONArray jsChoices = obj.getJSONArray("choices");
+			String[] choices = new String[jsChoices.length()];
 
-        } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
-            return new Question[0];
-        } catch (Exception e) {
-            System.err.println("Error parsing JSON: " + e.getMessage());
-            return new Question[0];
-        }
-    }
+			for (int j = 0; j < jsChoices.length(); j++) {
+				choices[j] = jsChoices.getString(j);
+			}
+
+			questions[i] = new Question(text, choices, answerIndex);
+		}
+
+		return questions;
+
+	} catch (IOException e) {
+		e.printStackTrace();
+		return new Question[0];
+	} catch (Exception e) {
+		e.printStackTrace();
+		return new Question[0];
+	}
 }
